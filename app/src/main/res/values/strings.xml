@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Dizi Takibi</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="unable_to_connect_internet">Unable to connect internet</string>
+    <string name="no_internet">NO INTERNET</string>
+</resources>
