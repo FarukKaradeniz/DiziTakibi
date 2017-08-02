@@ -8,7 +8,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MostPopular {
+public class ShowsList {
 
     @SerializedName("total")
     @Expose
@@ -21,7 +21,7 @@ public class MostPopular {
     private int pages;
     @SerializedName("tv_shows")
     @Expose
-    private List<TvShow> tvShows;
+    private List<Show> tvShows;
 
     public String getTotal() {
         return total;
@@ -35,7 +35,7 @@ public class MostPopular {
         return pages;
     }
 
-    public List<TvShow> getTvShows() {
+    public List<Show> getShows() {
         return tvShows;
     }
 }

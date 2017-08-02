@@ -10,27 +10,11 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class TvShow implements Parcelable {
-
-    @SerializedName("id")
-    @Expose
-    private int id;
-
-    @SerializedName("name")
-    @Expose
-    private String name;
+public class TvShow extends Show implements Parcelable {
 
     @SerializedName("description")
     @Expose
     private String description;
-
-    @SerializedName("status")
-    @Expose
-    private String status;
-
-    @SerializedName("image_thumbnail_path")
-    @Expose
-    private String imageUrl;
 
     @SerializedName("countdown")
     @Expose
@@ -57,7 +41,7 @@ public class TvShow implements Parcelable {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return imageUrl.replace("thumbnail", "full");
     }
 
     public Countdown getCountdown() {
@@ -66,6 +50,13 @@ public class TvShow implements Parcelable {
 
     public List<String> getGenres() {
         return genres;
+    }
+
+    public String getNetwork() {
+        return network;
+    }
+
+    public TvShow() {
     }
 
     @Override
@@ -79,12 +70,10 @@ public class TvShow implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.description);
         dest.writeString(this.status);
+        dest.writeString(this.network);
         dest.writeString(this.imageUrl);
         dest.writeParcelable(this.countdown, flags);
         dest.writeStringList(this.genres);
-    }
-
-    public TvShow() {
     }
 
     protected TvShow(Parcel in) {
@@ -92,12 +81,13 @@ public class TvShow implements Parcelable {
         this.name = in.readString();
         this.description = in.readString();
         this.status = in.readString();
+        this.network = in.readString();
         this.imageUrl = in.readString();
         this.countdown = in.readParcelable(Countdown.class.getClassLoader());
         this.genres = in.createStringArrayList();
     }
 
-    public static final Parcelable.Creator<TvShow> CREATOR = new Parcelable.Creator<TvShow>() {
+    public static final Creator<TvShow> CREATOR = new Creator<TvShow>() {
         @Override
         public TvShow createFromParcel(Parcel source) {
             return new TvShow(source);

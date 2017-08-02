@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.omeerfk.dizitakibi.model.Show;
 import com.omeerfk.dizitakibi.model.TelevisionShow;
 import com.omeerfk.dizitakibi.model.TvShow;
 import com.squareup.picasso.Picasso;
@@ -23,10 +24,10 @@ import butterknife.ButterKnife;
  */
 
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder>{
-    private List<TvShow> shows;
+    private List<Show> shows;
     private Context context;
 
-    public TvShowAdapter(Context context, List<TvShow> shows){
+    public TvShowAdapter(Context context, List<Show> shows){
         this.context = context;
         this.shows = shows;
     }
@@ -40,11 +41,15 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TvShow tvShow = shows.get(position);
+        Show tvShow = shows.get(position);
 
         holder.name.setText(tvShow.getName());
-        holder.genres.setText(tvShow.getGenres().toString());
-        Picasso.with(context).load(tvShow.getImageUrl()).placeholder(R.mipmap.error_image).into(holder.image);
+        holder.genres.setText(tvShow.getNetwork());
+        Picasso.with(context)
+                .load(tvShow.getImageUrl())
+                .placeholder(R.mipmap.image_place_holder)
+                .error(R.mipmap.error_image)
+                .into(holder.image);
 
     }
 
@@ -53,7 +58,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
         return shows.size();
     }
 
-    public void setData(List<TvShow> newShows){
+    public void setData(List<Show> newShows){
         this.shows = newShows;
     }
 
@@ -65,7 +70,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
         @BindView(R.id.list_item_name)
         TextView name;
 
-        @BindView(R.id.list_item_genres)
+        @BindView(R.id.list_item_network)
         TextView genres;
 
         public ViewHolder(View itemView) {

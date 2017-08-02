@@ -1,6 +1,6 @@
 package com.omeerfk.dizitakibi.events;
 
-import com.omeerfk.dizitakibi.model.TvShow;
+import com.omeerfk.dizitakibi.model.Show;
 
 import java.util.List;
 
@@ -9,12 +9,12 @@ import java.util.List;
  */
 
 public class ListEvent {
-    private List<TvShow> shows;
-    public ListEvent(List<TvShow> shows){
+    private List<Show> shows;
+    public ListEvent(List<Show> shows){
         this.shows = shows;
     }
 
-    public List<TvShow> getShows() {
+    public List<Show> getShows() {
         return shows;
     }
 }

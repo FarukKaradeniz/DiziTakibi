@@ -5,20 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
+    android:id="@+id/container"
     tools:context="com.omeerfk.dizitakibi.MainActivity">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/most_popular_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:max="100"
-        android:layout_gravity="center"
-        style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-
 </FrameLayout>

@@ -1,6 +1,6 @@
 package com.omeerfk.dizitakibi;
 
-import com.omeerfk.dizitakibi.model.MostPopular;
+import com.omeerfk.dizitakibi.model.ShowsList;
 import com.omeerfk.dizitakibi.model.TelevisionShow;
 
 import java.util.List;
@@ -18,11 +18,11 @@ import retrofit2.http.Query;
 public interface ShowsApi {
 
     @GET("most-popular")
-    Call<MostPopular> getMostPopularPage(@Query("page") int page);
+    Call<ShowsList> getMostPopularPage(@Query("page") int page);
 
     @GET("search")
-    Call<List<TelevisionShow>> searchByName(@Query("q") String name,
-                                    @Query("page") int page);
+    Call<ShowsList> searchByName(@Query("q") String name,
+                                       @Query("page") int page);
 
     @GET("show-details")
     Call<TelevisionShow> getTvShow(@Query("q") String id);
