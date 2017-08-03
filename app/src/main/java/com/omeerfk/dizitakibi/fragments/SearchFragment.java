@@ -17,12 +17,11 @@ import android.widget.TextView;
 
 import com.omeerfk.dizitakibi.R;
 import com.omeerfk.dizitakibi.ShowsApi;
-import com.omeerfk.dizitakibi.TvShowAdapter;
+import com.omeerfk.dizitakibi.ShowAdapter;
 import com.omeerfk.dizitakibi.model.ShowsList;
 import com.omeerfk.dizitakibi.model.Show;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,7 +48,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
     @BindView(R.id.arama_uyari)
     TextView tv;
 
-    private TvShowAdapter adapter;
+    private ShowAdapter adapter;
 
     private List<Show> shows = new ArrayList<>();
 
@@ -69,7 +68,7 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        adapter = new TvShowAdapter(getActivity(), shows);
+        adapter = new ShowAdapter(getActivity(), shows);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));

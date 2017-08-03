@@ -1,6 +1,7 @@
 package com.omeerfk.dizitakibi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +13,7 @@ import android.widget.ToggleButton;
 
 import com.omeerfk.dizitakibi.database.Database;
 import com.omeerfk.dizitakibi.model.Show;
-import com.omeerfk.dizitakibi.model.TelevisionShow;
-import com.omeerfk.dizitakibi.model.TvShow;
+import com.omeerfk.dizitakibi.services.DownloadToDatabaseService;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -26,15 +26,18 @@ import butterknife.ButterKnife;
  * Created by Faruk Karadeniz on 1.08.2017.
  */
 
-public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder>{
+public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
+    private final String TAG = getClass().getSimpleName();
     private List<Show> shows;
     private Context context;
     private Database db;
 
-    public TvShowAdapter(Context context, List<Show> shows){
+    public ShowAdapter(Context context, List<Show> shows){
         this.context = context;
-        this.shows = shows;
         db = new Database(context);
+        db.open();
+        setData(shows);
+        setHasStableIds(true);
     }
 
 
@@ -44,11 +47,6 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        db.open();
-    }
 
     @Override
     public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
@@ -57,32 +55,43 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final Show tvShow = shows.get(position);
 
+        holder.fav.setChecked(tvShow.isFavorited());
         holder.name.setText(tvShow.getName());
-        holder.genres.setText(tvShow.getNetwork());
+        holder.network.setText(tvShow.getNetwork());
         Picasso.with(context)
                 .load(tvShow.getImageUrl())
                 .placeholder(R.mipmap.image_place_holder)
                 .error(R.mipmap.error_image)
                 .into(holder.image);
-        //// TODO: 2.08.2017
+
         holder.fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (holder.fav.isChecked()){
-
+                    tvShow.setFavorited(true);
+                    Intent i = new Intent(context, DownloadToDatabaseService.class);
+                    i.putExtra("id", tvShow.getId());
+                    context.startService(i);
                 }else{
-
+                   //db.removeShow(tvShow);
+                    //todo hatalar var düzelt.
                 }
             }
         });
-        //database kontrolü eger db'de varsa checked yapılacak
-        //uncheched yapılırsa db'den silinecek
-        //eger unchecked ise checked yapılırsa db'ye eklenecek
-        //holder.fav.setChecked();
 
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return shows.get(position).hashCode();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
     @Override
@@ -92,6 +101,17 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
 
     public void setData(List<Show> newShows){
         this.shows = newShows;
+        for (int i=0 ; i<shows.size() ; i++){
+            if (db.isTvShowInDatabase(shows.get(i).getId())){
+                shows.get(i).setFavorited(true);
+            }
+        }
+    }
+
+    @Override
+    public void onViewRecycled(ViewHolder holder) {
+        super.onViewRecycled(holder);
+        holder.fav.setChecked(shows.get(holder.getAdapterPosition()).isFavorited());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -103,7 +123,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder
         TextView name;
 
         @BindView(R.id.list_item_network)
-        TextView genres;
+        TextView network;
 
         @BindView(R.id.item_is_favorited)
         ToggleButton fav;

@@ -2,6 +2,8 @@ package com.omeerfk.dizitakibi.database;
 
 import android.provider.BaseColumns;
 
+import com.omeerfk.dizitakibi.model.Countdown;
+
 /**
  * Created by Faruk Karadeniz on 2.08.2017.
  */
@@ -24,6 +26,7 @@ public final class DiziFields {
                     CountdownDB.COLUMN_EPISODE_NAME + " TEXT, " +
                     CountdownDB.COLUMN_SEASON + " INTEGER, " +
                     CountdownDB.COLUMN_EPISODE + " INTEGER, " +
+                    CountdownDB.COLUMN_SHOW_ID + " INTEGER, " +
                     CountdownDB.COLUMN_DATE + " TEXT )";
 
     static class ShowDB{
@@ -41,6 +44,7 @@ public final class DiziFields {
         static final String COLUMN_EPISODE_NAME = "EPISODE_NAME";
         static final String COLUMN_SEASON = "SEASON";
         static final String COLUMN_EPISODE = "EPISODE";
+        static final String COLUMN_SHOW_ID = "SHOW_ID";
         static final String COLUMN_DATE = "DATE";
     }
 

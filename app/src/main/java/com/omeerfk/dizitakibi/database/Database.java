@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.omeerfk.dizitakibi.model.Countdown;
+import com.omeerfk.dizitakibi.model.Show;
 import com.omeerfk.dizitakibi.model.TvShow;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class Database {
         values.put(DiziFields.CountdownDB.COLUMN_SEASON, countdown.getSeason());
         values.put(DiziFields.CountdownDB.COLUMN_EPISODE, countdown.getEpisode());
         values.put(DiziFields.CountdownDB.COLUMN_DATE, countdown.getAirDate());
+        values.put(DiziFields.CountdownDB.COLUMN_SHOW_ID, countdown.getShowId());
 
         long id = database.insert(DiziFields.CountdownDB.TABLE_NAME, null, values);
         countdown.setId((int) id);
@@ -55,15 +57,16 @@ public class Database {
     }
 
     public void addTvShow(TvShow show){
-
-        addCountdown(show.getCountdown());
         ContentValues values = new ContentValues();
 
+        if (show.getCountdown() != null) {
+            addCountdown(show.getCountdown());
+            values.put(DiziFields.ShowDB.COLUMN_COUNTDOWN, show.getCountdown().getId());
+        }
         values.put(DiziFields.ShowDB.COLUMN_ID, show.getId());
         values.put(DiziFields.ShowDB.COLUMN_NAME, show.getName());
         values.put(DiziFields.ShowDB.COLUMN_IMAGE, show.getImageUrl());
         values.put(DiziFields.ShowDB.COLUMN_NETWORK, show.getNetwork());
-        values.put(DiziFields.ShowDB.COLUMN_COUNTDOWN, show.getCountdown().getId());
 
         long id = database.insert(DiziFields.ShowDB.TABLE_NAME, null, values);
         if (id != -1){
@@ -100,10 +103,53 @@ public class Database {
         }
     }
 
+    public void removeShow(Show show){
+
+        int i = database.delete(DiziFields.ShowDB.TABLE_NAME,
+                DiziFields.ShowDB.COLUMN_ID + " = ? ",
+                new String[]{String.valueOf(show.getId())});
+
+        if (i > 0){
+            Log.e(TAG, show.getName() + " was deleted from database.");
+        }else{
+            Log.e(TAG, "ERROR : " + show.getName() + " was not deleted.");
+        }
+    }
+
+    public void removeCountdownIfShowDoesntExist(){
+        ArrayList<Countdown> countdowns = getAllCountdowns();
+        for (int i=0 ; i<countdowns.size() ; i++){
+            if (!isTvShowInDatabase(countdowns.get(i).getShowId())){
+                removeCountdown(countdowns.get(i));
+            }
+        }
+    }
+
+    private ArrayList<Countdown> getAllCountdowns(){
+        ArrayList<Countdown> countdowns = new ArrayList<>();
+        String sql = "SELECT * FROM " + DiziFields.CountdownDB.TABLE_NAME;
+
+        Cursor cursor = database.rawQuery(sql, null);
+        while (cursor.moveToNext()){
+            Countdown countdown = new Countdown();
+
+            countdown.setId(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_ID)));
+            countdown.setName(cursor.getString(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_EPISODE_NAME)));
+            countdown.setAirDate(cursor.getString(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_DATE)));
+            countdown.setEpisode(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_EPISODE)));
+            countdown.setSeason(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_SEASON)));
+            countdown.setShowId(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_SHOW_ID)));
+
+            countdowns.add(countdown);
+        }
+        cursor.close();
+
+        return countdowns;
+    }
+
     //tvshow icerisindeki countdown güncellenir
     public void updateTvShowCountdown(TvShow show){
         Countdown countdown = show.getCountdown();
-        //todo db'den get countdown methodunu yaptıktan sonra show.setcountdown yapılabilir
 
         ContentValues values = new ContentValues();
 
@@ -111,6 +157,8 @@ public class Database {
         values.put(DiziFields.CountdownDB.COLUMN_SEASON, countdown.getSeason());
         values.put(DiziFields.CountdownDB.COLUMN_EPISODE, countdown.getEpisode());
         values.put(DiziFields.CountdownDB.COLUMN_DATE, countdown.getAirDate());
+
+        show.setCountdown(getCountdown(show.getCountdown().getId()));
 
         int i = database.update(DiziFields.CountdownDB.TABLE_NAME, values,
                 DiziFields.CountdownDB.COLUMN_ID + " = ? ",
@@ -147,20 +195,24 @@ public class Database {
     }
 
     private Countdown getCountdown(int id){
-        Countdown countdown = new Countdown();
+        Countdown countdown = null;
         String sql = "SELECT * FROM " +
                 DiziFields.CountdownDB.TABLE_NAME + " WHERE " +
                 DiziFields.CountdownDB.COLUMN_ID + " = ? ";
 
         Cursor cursor = database.rawQuery(sql, new String[]{String.valueOf(id)});
-        cursor.moveToFirst();
+        if (cursor.moveToFirst()){
+            countdown = new Countdown();
 
-        countdown.setId(id);
-        countdown.setName(cursor.getString(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_EPISODE_NAME)));
-        countdown.setEpisode(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_EPISODE)));
-        countdown.setSeason(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_SEASON)));
-        countdown.setAirDate(cursor.getString(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_DATE)));
-        cursor.close();
+            countdown.setId(id);
+            countdown.setName(cursor.getString(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_EPISODE_NAME)));
+            countdown.setEpisode(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_EPISODE)));
+            countdown.setSeason(cursor.getInt(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_SEASON)));
+            countdown.setAirDate(cursor.getString(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_DATE)));
+            cursor.close();
+        }
+
+
 
         return countdown;
     }

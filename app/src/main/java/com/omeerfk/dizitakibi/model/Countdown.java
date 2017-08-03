@@ -27,6 +27,8 @@ public class Countdown implements Parcelable {
     @Expose
     private String airDate;
 
+    private int showId;
+
     public int getId() {
         return id;
     }
@@ -49,6 +51,14 @@ public class Countdown implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getShowId() {
+        return showId;
+    }
+
+    public void setShowId(int showId) {
+        this.showId = showId;
     }
 
     public void setSeason(int season) {
@@ -82,6 +92,7 @@ public class Countdown implements Parcelable {
         dest.writeInt(this.episode);
         dest.writeString(this.name);
         dest.writeString(this.airDate);
+        dest.writeInt(this.showId);
     }
 
     protected Countdown(Parcel in) {
@@ -90,6 +101,7 @@ public class Countdown implements Parcelable {
         this.episode = in.readInt();
         this.name = in.readString();
         this.airDate = in.readString();
+        this.showId = in.readInt();
     }
 
     public static final Creator<Countdown> CREATOR = new Creator<Countdown>() {

@@ -5,4 +5,5 @@
     <string name="unable_to_connect_internet">Unable to connect internet</string>
     <string name="no_internet">NO INTERNET</string>
     <string name="enter_tvshow_name">Please enter the television show you want to see.</string>
+    <string name="no_episode">No available next episode</string>
 </resources>

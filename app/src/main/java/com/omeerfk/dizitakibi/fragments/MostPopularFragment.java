@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.omeerfk.dizitakibi.R;
-import com.omeerfk.dizitakibi.TvShowAdapter;
+import com.omeerfk.dizitakibi.ShowAdapter;
 import com.omeerfk.dizitakibi.events.ListEvent;
 import com.omeerfk.dizitakibi.events.ProgressEvent;
 import com.omeerfk.dizitakibi.model.Show;
@@ -40,7 +40,7 @@ public class MostPopularFragment extends Fragment {
 
     private final String TAG = getClass().getName();
 
-    private TvShowAdapter adapter;
+    private ShowAdapter adapter;
 
     private List<Show> shows = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class MostPopularFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_most_popular, container, false);
         unbinder = ButterKnife.bind(this, v);
 
-        adapter = new TvShowAdapter(getActivity(), shows);
+        adapter = new ShowAdapter(getActivity(), shows);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
