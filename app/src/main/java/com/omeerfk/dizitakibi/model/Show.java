@@ -17,10 +17,6 @@ public class Show {
     @Expose
     protected String name;
 
-    @SerializedName("status")
-    @Expose
-    protected String status;
-
     @SerializedName("network")
     @Expose
     protected String network;
@@ -29,16 +25,38 @@ public class Show {
     @Expose
     protected String imageUrl;
 
+    protected boolean favorited;
+
+    public boolean isFavorited() {
+        return favorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        this.favorited = favorited;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setNetwork(String network) {
+        this.network = network;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public int getId() {
         return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     public String getNetwork() {

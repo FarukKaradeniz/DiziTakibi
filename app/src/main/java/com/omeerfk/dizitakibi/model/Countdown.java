@@ -12,6 +12,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Countdown implements Parcelable {
 
+    private int id;
+
     @SerializedName("season")
     @Expose
     private int season;
@@ -24,6 +26,10 @@ public class Countdown implements Parcelable {
     @SerializedName("air_date")
     @Expose
     private String airDate;
+
+    public int getId() {
+        return id;
+    }
 
     public int getSeason() {
         return season;
@@ -41,6 +47,29 @@ public class Countdown implements Parcelable {
         return airDate;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSeason(int season) {
+        this.season = season;
+    }
+
+    public void setEpisode(int episode) {
+        this.episode = episode;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAirDate(String airDate) {
+        this.airDate = airDate;
+    }
+
+    public Countdown() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -48,23 +77,22 @@ public class Countdown implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeInt(this.season);
         dest.writeInt(this.episode);
         dest.writeString(this.name);
         dest.writeString(this.airDate);
     }
 
-    public Countdown() {
-    }
-
     protected Countdown(Parcel in) {
+        this.id = in.readInt();
         this.season = in.readInt();
         this.episode = in.readInt();
         this.name = in.readString();
         this.airDate = in.readString();
     }
 
-    public static final Parcelable.Creator<Countdown> CREATOR = new Parcelable.Creator<Countdown>() {
+    public static final Creator<Countdown> CREATOR = new Creator<Countdown>() {
         @Override
         public Countdown createFromParcel(Parcel source) {
             return new Countdown(source);

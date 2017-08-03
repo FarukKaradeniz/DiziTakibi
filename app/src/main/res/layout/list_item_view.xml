@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_marginLeft="6dp"
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="210dp"
         android:layout_height="80dp">
 
         <TextView
@@ -35,6 +35,19 @@
             android:layout_weight="2"/>
 
     </LinearLayout>
+
+    <ToggleButton
+        android:id="@+id/item_is_favorited"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/is_favorited"
+        android:gravity="center"
+        android:text="ToggleButton"
+        android:layout_marginLeft="10dp"
+        android:textOff=""
+        android:textOn="" />
+
 
 
 </LinearLayout>
