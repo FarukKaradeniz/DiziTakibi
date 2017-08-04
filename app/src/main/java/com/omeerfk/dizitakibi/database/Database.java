@@ -29,12 +29,10 @@ public class Database {
 
     public void open(){
         this.database = dbHelper.getWritableDatabase();
-        Log.e(TAG, "Database is opened");
     }
 
     public void close(){
         dbHelper.close();
-        Log.e(TAG, "Database is closed");
     }
 
     private void addCountdown(Countdown countdown){
@@ -212,8 +210,6 @@ public class Database {
             cursor.close();
         }
 
-
-
         return countdown;
     }
 
@@ -229,5 +225,4 @@ public class Database {
             return false;
         }
     }
-
 }

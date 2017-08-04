@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.omeerfk.dizitakibi.R;
-import com.omeerfk.dizitakibi.ShowAdapter;
+import com.omeerfk.dizitakibi.adapters.ShowAdapter;
 import com.omeerfk.dizitakibi.events.ListEvent;
 import com.omeerfk.dizitakibi.events.ProgressEvent;
 import com.omeerfk.dizitakibi.model.Show;

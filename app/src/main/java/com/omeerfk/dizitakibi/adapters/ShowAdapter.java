@@ -1,4 +1,4 @@
-package com.omeerfk.dizitakibi;
+package com.omeerfk.dizitakibi.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.omeerfk.dizitakibi.R;
 import com.omeerfk.dizitakibi.database.Database;
 import com.omeerfk.dizitakibi.model.Show;
 import com.omeerfk.dizitakibi.services.DownloadToDatabaseService;
@@ -76,8 +77,8 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
                     i.putExtra("id", tvShow.getId());
                     context.startService(i);
                 }else{
-                   //db.removeShow(tvShow);
-                    //todo hatalar var düzelt.
+                    tvShow.setFavorited(false);
+                    db.removeShow(tvShow);
                 }
             }
         });

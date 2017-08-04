@@ -11,14 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.omeerfk.dizitakibi.FavoriteShowsAdapter;
+import com.omeerfk.dizitakibi.adapters.FavoriteShowsAdapter;
 import com.omeerfk.dizitakibi.R;
-import com.omeerfk.dizitakibi.ShowAdapter;
 import com.omeerfk.dizitakibi.database.Database;
 import com.omeerfk.dizitakibi.model.TvShow;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,8 +53,9 @@ public class FavoritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_favorites, container, false);
+
         unbinder = ButterKnife.bind(this, v);
         shows = database.getTvShows();
 

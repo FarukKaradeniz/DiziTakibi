@@ -1,4 +1,4 @@
-package com.omeerfk.dizitakibi;
+package com.omeerfk.dizitakibi.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.omeerfk.dizitakibi.R;
 import com.omeerfk.dizitakibi.database.Database;
 import com.omeerfk.dizitakibi.model.TvShow;
 import com.squareup.picasso.Picasso;

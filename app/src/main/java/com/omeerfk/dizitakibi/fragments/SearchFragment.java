@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.omeerfk.dizitakibi.R;
 import com.omeerfk.dizitakibi.ShowsApi;
-import com.omeerfk.dizitakibi.ShowAdapter;
+import com.omeerfk.dizitakibi.adapters.ShowAdapter;
 import com.omeerfk.dizitakibi.model.ShowsList;
 import com.omeerfk.dizitakibi.model.Show;
 
