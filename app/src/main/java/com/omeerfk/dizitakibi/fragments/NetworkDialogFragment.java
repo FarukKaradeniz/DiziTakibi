@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.provider.Settings;
 
 import com.omeerfk.dizitakibi.R;
 

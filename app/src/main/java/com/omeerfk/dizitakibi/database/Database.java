@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.omeerfk.dizitakibi.model.Countdown;
 import com.omeerfk.dizitakibi.model.Show;
@@ -17,8 +16,6 @@ import java.util.ArrayList;
  */
 
 public class Database {
-
-    private final String TAG = getClass().getSimpleName();
 
     private SQLiteDatabase database;
     private MyDatabaseHelper dbHelper;
@@ -46,12 +43,6 @@ public class Database {
 
         long id = database.insert(DiziFields.CountdownDB.TABLE_NAME, null, values);
         countdown.setId((int) id);
-
-        if (id != -1){
-            Log.e(TAG, countdown.getName() + " (" + countdown.getId() +") database'e eklenmistir");
-        }else{
-            Log.e(TAG, countdown.getName() + " database'e eklenemedi");
-        }
     }
 
     public void addTvShow(TvShow show){
@@ -66,52 +57,31 @@ public class Database {
         values.put(DiziFields.ShowDB.COLUMN_IMAGE, show.getImageUrl());
         values.put(DiziFields.ShowDB.COLUMN_NETWORK, show.getNetwork());
 
-        long id = database.insert(DiziFields.ShowDB.TABLE_NAME, null, values);
-        if (id != -1){
-            Log.e(TAG, show.getName() + " was added to the database. ");
-        }else{
-            Log.e(TAG, "ERROR: " + show.getName() + " not added to the data base ");
-        }
+        database.insert(DiziFields.ShowDB.TABLE_NAME, null, values);
     }
 
     private void removeCountdown(Countdown countdown){
-        int i = database.delete(DiziFields.CountdownDB.TABLE_NAME,
+        database.delete(DiziFields.CountdownDB.TABLE_NAME,
                 DiziFields.CountdownDB.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(countdown.getId())});
 
-        if (i > 0){
-            Log.e(TAG, countdown.getName() + " was deleted from database.");
-        }else{
-            Log.e(TAG, "ERROR : " + countdown.getName() + " was not deleted.");
-        }
 
     }
 
     public void removeTvShow(TvShow show){
         removeCountdown(show.getCountdown());
 
-        int i = database.delete(DiziFields.ShowDB.TABLE_NAME,
+        database.delete(DiziFields.ShowDB.TABLE_NAME,
                 DiziFields.ShowDB.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(show.getId())});
 
-        if (i > 0){
-            Log.e(TAG, show.getName() + " was deleted from database.");
-        }else{
-            Log.e(TAG, "ERROR : " + show.getName() + " was not deleted.");
-        }
     }
 
     public void removeShow(Show show){
 
-        int i = database.delete(DiziFields.ShowDB.TABLE_NAME,
+        database.delete(DiziFields.ShowDB.TABLE_NAME,
                 DiziFields.ShowDB.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(show.getId())});
-
-        if (i > 0){
-            Log.e(TAG, show.getName() + " was deleted from database.");
-        }else{
-            Log.e(TAG, "ERROR : " + show.getName() + " was not deleted.");
-        }
     }
 
     public void removeCountdownIfShowDoesntExist(){
@@ -158,15 +128,9 @@ public class Database {
 
         show.setCountdown(getCountdown(show.getCountdown().getId()));
 
-        int i = database.update(DiziFields.CountdownDB.TABLE_NAME, values,
+        database.update(DiziFields.CountdownDB.TABLE_NAME, values,
                 DiziFields.CountdownDB.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(show.getCountdown().getId())});
-
-        if (i > 0){
-            Log.e(TAG, show.getName() + " was updated.");
-        }else{
-            Log.e(TAG, "ERROR : " + show.getName() + " was not updated.");
-        }
     }
 
     public ArrayList<TvShow> getTvShows(){

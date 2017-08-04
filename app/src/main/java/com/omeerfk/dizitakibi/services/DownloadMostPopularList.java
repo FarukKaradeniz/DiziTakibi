@@ -2,7 +2,6 @@ package com.omeerfk.dizitakibi.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.util.Log;
 
 import com.omeerfk.dizitakibi.ShowsApi;
 import com.omeerfk.dizitakibi.events.ListEvent;
@@ -21,7 +20,6 @@ import retrofit2.Response;
 
 
 public class DownloadMostPopularList extends IntentService {
-    private final String TAG = getClass().getSimpleName();
     private List<Show> shows = new ArrayList<>();
 
     public DownloadMostPopularList() {
@@ -31,7 +29,6 @@ public class DownloadMostPopularList extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Log.e(TAG, "Download Service Starting..");
         int progress = 0;
         ShowsApi api = ShowsApi.Reference.getInstance();
 
@@ -53,7 +50,6 @@ public class DownloadMostPopularList extends IntentService {
             return;
         }
 
-        Log.e(TAG, String.format("Download of %d items are completed.", shows.size()));
 
         EventBus.getDefault().post(new ListEvent(shows));
     }

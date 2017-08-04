@@ -38,8 +38,8 @@
 
     <ToggleButton
         android:id="@+id/item_is_favorited"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:background="@drawable/is_favorited"
         android:gravity="center"

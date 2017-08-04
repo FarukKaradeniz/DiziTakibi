@@ -3,7 +3,6 @@ package com.omeerfk.dizitakibi;
 import com.omeerfk.dizitakibi.model.ShowsList;
 import com.omeerfk.dizitakibi.model.TelevisionShow;
 
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;

@@ -35,6 +35,7 @@
             android:textStyle="bold"
             android:layout_gravity="center"
             android:gravity="center"
+            android:padding="18dp"
             android:text="@string/enter_tvshow_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

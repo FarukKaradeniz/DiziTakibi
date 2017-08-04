@@ -11,6 +11,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.omeerfk.dizitakibi.fragments.FavoritesFragment;
 import com.omeerfk.dizitakibi.fragments.MostPopularFragment;
@@ -36,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
-    private final String TAG = getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,25 +48,16 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        setupViewPager(viewPager);
+        setupViewPager();
 
         tab.setupWithViewPager(viewPager);
 
 
-        boolean hasNetworkAccess = NetworkHelper.hasNetworkAccess(this);
-        if (!hasNetworkAccess){
-            //show dialog fragment
-            NetworkDialogFragment dialogFragment = new NetworkDialogFragment();
-            dialogFragment.show(getSupportFragmentManager(), dialogFragment.getClass().getSimpleName());
 
-        }else{
-            Intent intent = new Intent(this, DownloadMostPopularList.class);
-            startService(intent);
-        }
 
     }
 
-    private void setupViewPager(ViewPager pager){
+    private void setupViewPager(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FavoritesFragment(), "Favorites");
         adapter.addFragment(new MostPopularFragment(), "Popular Shows");
@@ -101,5 +94,19 @@ public class MainActivity extends AppCompatActivity {
      }
  }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.about){
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

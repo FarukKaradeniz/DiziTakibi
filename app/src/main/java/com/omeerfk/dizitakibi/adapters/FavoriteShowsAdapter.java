@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
  */
 
 public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdapter.ViewHolder>{
-    private final String TAG = getClass().getSimpleName();
     private List<TvShow> shows;
     private Context context;
     private Database db;

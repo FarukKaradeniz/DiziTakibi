@@ -1,6 +1,7 @@
 package com.omeerfk.dizitakibi.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -16,6 +17,8 @@ import com.omeerfk.dizitakibi.adapters.ShowAdapter;
 import com.omeerfk.dizitakibi.events.ListEvent;
 import com.omeerfk.dizitakibi.events.ProgressEvent;
 import com.omeerfk.dizitakibi.model.Show;
+import com.omeerfk.dizitakibi.services.DownloadMostPopularList;
+import com.omeerfk.dizitakibi.utils.NetworkHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +41,6 @@ public class MostPopularFragment extends Fragment {
 
     Unbinder unbinder;
 
-    private final String TAG = getClass().getName();
 
     private ShowAdapter adapter;
 
@@ -55,6 +57,17 @@ public class MostPopularFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_most_popular, container, false);
         unbinder = ButterKnife.bind(this, v);
+
+         boolean hasNetworkAccess = NetworkHelper.hasNetworkAccess(getActivity());
+        if (!hasNetworkAccess){
+            //show dialog fragment
+            NetworkDialogFragment dialogFragment = new NetworkDialogFragment();
+            dialogFragment.show(getActivity().getSupportFragmentManager(), dialogFragment.getClass().getSimpleName());
+        }else{
+            Intent intent = new Intent(getActivity(), DownloadMostPopularList.class);
+            getActivity().startService(intent);
+        }
+
 
         adapter = new ShowAdapter(getActivity(), shows);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -97,4 +110,5 @@ public class MostPopularFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 }

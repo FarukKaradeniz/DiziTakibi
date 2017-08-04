@@ -6,4 +6,14 @@
     <string name="no_internet">NO INTERNET</string>
     <string name="enter_tvshow_name">Please enter the television show you want to see.</string>
     <string name="no_episode">No available next episode</string>
+    <string name="about">About</string>
+    <string name="refresh">Refresh</string>
+
+    <string name="retro">Retrofit: https://github.com/square/retrofit</string>
+    <string name="gson">Gson: https://github.com/google/gson</string>
+    <string name="eventbus">Eventbut: https://github.com/greenrobot/EventBus</string>
+    <string name="picasso">Picasso: https://github.com/square/picasso</string>
+    <string name="butterknife">Butterknife: https://github.com/JakeWharton/butterknife</string>
+    <string name="open_source_libraries">Open Source Libraries</string>
+    <string name="my_twitter">Twitter : https://twitter.com/OmeerFK</string>
 </resources>

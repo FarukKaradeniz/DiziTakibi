@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +51,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     private List<Show> shows = new ArrayList<>();
 
-    private final String TAG = getClass().getSimpleName();
 
     Unbinder unbinder;
 
@@ -97,7 +95,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             tv.setVisibility(View.INVISIBLE);
         }
 
-        Log.e(TAG, "Text Submitted");
         bar.setVisibility(View.VISIBLE);
 
         ShowsApi api = ShowsApi.Reference.getInstance();
@@ -108,7 +105,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             public void onResponse(Call<ShowsList> call, Response<ShowsList> response) {
                 if (response.isSuccessful()) {
                     shows = response.body().getShows();
-                    Log.e(TAG, "onResponse: " + shows.size());
                     bar.setVisibility(View.INVISIBLE);
                     setRecyclerViewAdapter(shows);
                 }

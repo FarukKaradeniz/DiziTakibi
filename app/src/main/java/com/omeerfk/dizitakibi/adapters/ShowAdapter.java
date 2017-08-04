@@ -28,7 +28,6 @@ import butterknife.ButterKnife;
  */
 
 public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
-    private final String TAG = getClass().getSimpleName();
     private List<Show> shows;
     private Context context;
     private Database db;

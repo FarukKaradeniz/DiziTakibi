@@ -1,9 +1,5 @@
 package com.omeerfk.dizitakibi.database;
 
-import android.provider.BaseColumns;
-
-import com.omeerfk.dizitakibi.model.Countdown;
-
 /**
  * Created by Faruk Karadeniz on 2.08.2017.
  */

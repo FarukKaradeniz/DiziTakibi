@@ -1,0 +1,116 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:orientation="vertical"
+    tools:context="com.omeerfk.dizitakibi.fragments.AboutFragment">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <TextView
+        android:textStyle="normal"
+        android:textSize="20sp"
+        android:textColor="@color/navigationBarColor"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/my_twitter"
+        android:textColorLink="@color/colorPrimary"
+        android:autoLink="web"/>
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:background="#000000"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/about_header"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/open_source_libraries"/>
+    <View
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="8dp"
+        android:background="#000000"
+        android:layout_height="1dp"/>
+
+
+    <TextView
+        android:id="@+id/gson"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:textColor="@color/navigationBarColor"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/gson"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:autoLink="web"/>
+
+    <TextView
+        android:id="@+id/retro"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:textColor="@color/navigationBarColor"
+        android:layout_marginTop="4dp"
+        android:linksClickable="true"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/retro"
+        android:autoLink="web"/>
+
+    <TextView
+        android:id="@+id/picasso"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:textColor="@color/navigationBarColor"
+        android:layout_marginTop="4dp"
+        android:linksClickable="true"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/picasso"
+        android:autoLink="web"/>
+
+    <TextView
+        android:id="@+id/eventbus"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:textColor="@color/navigationBarColor"
+        android:layout_marginTop="4dp"
+        android:linksClickable="true"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/eventbus"
+        android:autoLink="web"/>
+
+    <TextView
+        android:id="@+id/butterknife"
+        android:textStyle="italic"
+        android:textSize="20sp"
+        android:textColor="@color/navigationBarColor"
+        android:layout_marginTop="4dp"
+        android:linksClickable="true"
+        android:textColorLink="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/butterknife"
+        android:autoLink="web"/>
+
+
+
+</LinearLayout>

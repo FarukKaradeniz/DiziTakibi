@@ -26,6 +26,9 @@
         <service
             android:name=".services.DownloadToDatabaseService"
             android:exported="false" />
+
+        <activity android:name=".AboutActivity"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
