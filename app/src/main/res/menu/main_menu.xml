@@ -8,4 +8,10 @@
         app:showAsAction="never"
         android:title="@string/about"
         />
+
+    <item android:id="@+id/refresh"
+        app:showAsAction="always"
+        android:title="@string/refresh"
+        android:icon="@drawable/refresh"
+        />
 </menu>

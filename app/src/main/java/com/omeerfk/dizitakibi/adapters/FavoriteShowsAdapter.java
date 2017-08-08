@@ -47,6 +47,7 @@ public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdap
                 return tvShow.getName().compareTo(t1.getName());
             }
         });
+        notifyDataSetChanged();
     }
 
     @Override
@@ -72,6 +73,8 @@ public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdap
         }else{
             holder.count.setText(R.string.no_episode);
         }
+
+        //TODO fav oncheck listener eklenecek
 
     }
 

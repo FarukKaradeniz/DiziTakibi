@@ -22,6 +22,8 @@ import com.omeerfk.dizitakibi.fragments.SearchFragment;
 import com.omeerfk.dizitakibi.services.DownloadMostPopularList;
 import com.omeerfk.dizitakibi.utils.NetworkHelper;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.about){
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
+        }
+        if (item.getItemId() == R.id.refresh){
+            EventBus.getDefault().post("REFRESH");
         }
 
         return super.onOptionsItemSelected(item);

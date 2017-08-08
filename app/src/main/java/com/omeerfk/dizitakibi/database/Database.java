@@ -78,13 +78,12 @@ public class Database {
     }
 
     public void removeShow(Show show){
-
         database.delete(DiziFields.ShowDB.TABLE_NAME,
                 DiziFields.ShowDB.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(show.getId())});
     }
 
-    public void removeCountdownIfShowDoesntExist(){
+    public void removeCountdownIfShowDoesNotExist(){
         ArrayList<Countdown> countdowns = getAllCountdowns();
         for (int i=0 ; i<countdowns.size() ; i++){
             if (!isTvShowInDatabase(countdowns.get(i).getShowId())){
