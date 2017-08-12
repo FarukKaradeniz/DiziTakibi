@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -57,8 +58,8 @@ public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdap
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int i) {
-        TvShow show = shows.get(i);
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        TvShow show = shows.get(position);
 
         holder.fav.setChecked(show.isFavorited());
         holder.network.setText(show.getNetwork());
@@ -68,13 +69,22 @@ public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdap
                 .placeholder(R.mipmap.image_place_holder)
                 .error(R.mipmap.error_image)
                 .into(holder.image);
+
         if (show.getCountdown() != null){
             holder.count.setText(show.getCountdown().getAirDate());
         }else{
             holder.count.setText(R.string.no_episode);
         }
 
-        //TODO fav oncheck listener eklenecek
+        holder.fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!holder.fav.isChecked()){
+                    shows.get(position).setFavorited(false);
+                    db.removeTvShow(shows.get(position));
+                }
+            }
+        });
 
     }
 

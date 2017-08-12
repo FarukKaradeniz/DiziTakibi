@@ -47,7 +47,6 @@ public class Database {
 
     public void addTvShow(TvShow show){
         ContentValues values = new ContentValues();
-
         if (show.getCountdown() != null) {
             addCountdown(show.getCountdown());
             values.put(DiziFields.ShowDB.COLUMN_COUNTDOWN, show.getCountdown().getId());
@@ -61,6 +60,7 @@ public class Database {
     }
 
     private void removeCountdown(Countdown countdown){
+        if (countdown == null) return;
         database.delete(DiziFields.CountdownDB.TABLE_NAME,
                 DiziFields.CountdownDB.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(countdown.getId())});
@@ -70,7 +70,6 @@ public class Database {
 
     public void removeTvShow(TvShow show){
         removeCountdown(show.getCountdown());
-
         database.delete(DiziFields.ShowDB.TABLE_NAME,
                 DiziFields.ShowDB.COLUMN_ID + " = ? ",
                 new String[]{String.valueOf(show.getId())});
@@ -86,7 +85,7 @@ public class Database {
     public void removeCountdownIfShowDoesNotExist(){
         ArrayList<Countdown> countdowns = getAllCountdowns();
         for (int i=0 ; i<countdowns.size() ; i++){
-            if (!isTvShowInDatabase(countdowns.get(i).getShowId())){
+            if (getTvShowById(countdowns.get(i).getShowId()) != null){
                 removeCountdown(countdowns.get(i));
             }
         }
@@ -145,8 +144,11 @@ public class Database {
             tvShow.setName(cursor.getString(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_NAME)));
             tvShow.setNetwork(cursor.getString(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_NETWORK)));
             tvShow.setImageUrl(cursor.getString(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_IMAGE)));
+
             Countdown countDown = getCountdown(cursor.getInt(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_COUNTDOWN)));
-            tvShow.setCountdown(countDown);
+            if (countDown!=null)
+                tvShow.setCountdown(countDown);
+
 
             shows.add(tvShow);
         }
@@ -172,20 +174,33 @@ public class Database {
             countdown.setAirDate(cursor.getString(cursor.getColumnIndex(DiziFields.CountdownDB.COLUMN_DATE)));
             cursor.close();
         }
-
         return countdown;
     }
 
-    public boolean isTvShowInDatabase(int id){
-        String sql = "SELECT * FROM " + DiziFields.ShowDB.TABLE_NAME +
-                " WHERE " + DiziFields.ShowDB.COLUMN_ID + " = ? ";
+    public TvShow getTvShowById(int id){
+
+        String sql = "SELECT * FROM " + DiziFields.ShowDB.TABLE_NAME + " WHERE " + DiziFields.ShowDB.COLUMN_ID
+                + " = ? ";
+        TvShow tvShow = null;
+
         Cursor cursor = database.rawQuery(sql, new String[]{String.valueOf(id)});
-        if (cursor.getCount() == 1){
-            cursor.close();
-            return true;
-        }else{
-            cursor.close();
-            return false;
+
+        if (cursor.moveToFirst()){
+            tvShow = new TvShow();
+
+            tvShow.setFavorited(true);
+            tvShow.setId(cursor.getInt(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_ID)));
+            tvShow.setName(cursor.getString(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_NAME)));
+            tvShow.setNetwork(cursor.getString(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_NETWORK)));
+            tvShow.setImageUrl(cursor.getString(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_IMAGE)));
+
+            Countdown countDown = getCountdown(cursor.getInt(cursor.getColumnIndex(DiziFields.ShowDB.COLUMN_COUNTDOWN)));
+            if (countDown!=null)
+                tvShow.setCountdown(countDown);
+
         }
+        cursor.close();
+        return tvShow;
     }
+
 }

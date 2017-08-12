@@ -102,7 +102,7 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
     public void setData(List<Show> newShows){
         this.shows = newShows;
         for (int i=0 ; i<shows.size() ; i++){
-            if (db.isTvShowInDatabase(shows.get(i).getId())){
+            if (db.getTvShowById(shows.get(i).getId()) != null){
                 shows.get(i).setFavorited(true);
             }
         }

@@ -32,7 +32,8 @@ public class DownloadToDatabaseService extends IntentService {
         database.open();
 
         int id = intent.getIntExtra("id", 0);
-        if (database.isTvShowInDatabase(id)){
+        boolean update = intent.getBooleanExtra("update", false);
+        if (database.getTvShowById(id) != null){
             return;
         }
         ShowsApi api = ShowsApi.Reference.getInstance();
@@ -40,8 +41,11 @@ public class DownloadToDatabaseService extends IntentService {
 
         try {
             Response<TelevisionShow> response = call.execute();
-            if (response.isSuccessful()){
-                database.addTvShow(response.body().getTvShow());
+            if (response.isSuccessful() && response.body().getTvShow()!=null){
+                if (update)
+                    database.updateTvShowCountdown(response.body().getTvShow());
+                else
+                    database.addTvShow(response.body().getTvShow());
             }
         } catch (IOException e) {
             e.printStackTrace();

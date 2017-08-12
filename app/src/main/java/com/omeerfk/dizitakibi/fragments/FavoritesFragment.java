@@ -38,12 +38,12 @@ public class FavoritesFragment extends Fragment {
     @BindView(R.id.during_refresh)
     ProgressBar bar;
 
-    Unbinder unbinder;
-    Database database;
+    private Unbinder unbinder;
+    private Database database;
 
-    ArrayList<TvShow> shows;
+    private ArrayList<TvShow> shows;
 
-    FavoriteShowsAdapter adapter;
+    private FavoriteShowsAdapter adapter;
 
     public FavoritesFragment() {
         // Required empty public constructor
@@ -91,16 +91,21 @@ public class FavoritesFragment extends Fragment {
     @Subscribe
     public void onEvent(String msg){
         bar.setVisibility(View.VISIBLE);
+
         for (int i=0 ; i<shows.size() ; i++){
+
             if (shows.get(i).getCountdown() != null) {
+
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date now = new Date();
                 try {
+
                     Date countDownTime = format.parse(shows.get(i).getCountdown().getAirDate());
                     if (countDownTime.before(now)){
-                        database.removeTvShow(shows.get(i));
+
                         Intent intent = new Intent(getActivity(), DownloadToDatabaseService.class);
                         intent.putExtra("id", shows.get(i).getId());
+                        intent.putExtra("update", true);
                         getActivity().startService(intent);
                     }
                 } catch (ParseException e) {
