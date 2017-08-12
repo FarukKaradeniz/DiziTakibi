@@ -108,12 +108,6 @@ public class ShowAdapter extends RecyclerView.Adapter<ShowAdapter.ViewHolder>{
         }
     }
 
-    @Override
-    public void onViewRecycled(ViewHolder holder) {
-        super.onViewRecycled(holder);
-        holder.fav.setChecked(shows.get(holder.getAdapterPosition()).isFavorited());
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.list_item_image)

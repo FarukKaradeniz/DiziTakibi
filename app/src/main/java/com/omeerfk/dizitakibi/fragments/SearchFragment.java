@@ -49,6 +49,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     private ShowAdapter adapter;
 
+    private boolean isSearched;
+
     private List<Show> shows = new ArrayList<>();
 
 
@@ -66,13 +68,24 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        isSearched = false;
         adapter = new ShowAdapter(getActivity(), shows);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         searchView.setOnQueryTextListener(this);
 
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isSearched)
+            tv.setVisibility(View.VISIBLE);
+        else
+            tv.setVisibility(View.INVISIBLE);
     }
 
     private void setRecyclerViewAdapter(List<Show> tvShows){
@@ -88,15 +101,8 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @Override
     public boolean onQueryTextSubmit(String s) {
-
-        if (TextUtils.isEmpty(tv.getText())){
-            tv.setVisibility(View.VISIBLE);
-        }else{
-            tv.setVisibility(View.INVISIBLE);
-        }
-
         bar.setVisibility(View.VISIBLE);
-
+        isSearched = true;
         ShowsApi api = ShowsApi.Reference.getInstance();
         Call<ShowsList> call = api.searchByName(s, 1);
 
@@ -114,7 +120,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
             public void onFailure(Call<ShowsList> call, Throwable t) {
             }
         });
-
 
         return true;
     }
