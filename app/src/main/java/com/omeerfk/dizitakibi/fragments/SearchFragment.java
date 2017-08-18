@@ -7,7 +7,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,8 @@ import android.widget.TextView;
 import com.omeerfk.dizitakibi.R;
 import com.omeerfk.dizitakibi.ShowsApi;
 import com.omeerfk.dizitakibi.adapters.ShowAdapter;
-import com.omeerfk.dizitakibi.model.ShowsList;
 import com.omeerfk.dizitakibi.model.Show;
+import com.omeerfk.dizitakibi.model.ShowsList;
 
 import java.util.ArrayList;
 import java.util.List;

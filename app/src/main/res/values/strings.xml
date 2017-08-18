@@ -15,4 +15,5 @@
     <string name="butterknife">Butterknife: https://github.com/JakeWharton/butterknife</string>
     <string name="open_source_libraries">Open Source Libraries</string>
     <string name="my_twitter">Twitter : https://twitter.com/OmeerFK</string>
+    <string name="reminders">Reminders</string>
 </resources>

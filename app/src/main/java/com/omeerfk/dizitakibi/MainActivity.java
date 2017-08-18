@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.viewpager)
     ViewPager viewPager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,12 +91,21 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.about){
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-        }
-        if (item.getItemId() == R.id.refresh){
-            EventBus.getDefault().post("REFRESH");
+
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.about:
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.refresh:
+                EventBus.getDefault().post("REFRESH");
+                break;
+            case R.id.reminders:
+                Intent intent2 = new Intent(this, RemindersActivity.class);
+                startActivity(intent2);
+
         }
 
         return super.onOptionsItemSelected(item);
