@@ -76,4 +76,8 @@ public class TvShow extends Show implements Parcelable {
             return new TvShow[size];
         }
     };
+
+    public String getShowInfo(){
+        return getName() + "\n" + getCountdown().getAirDate();
+    }
 }
