@@ -8,17 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.omeerfk.dizitakibi.RemindersActivity;
-import com.omeerfk.dizitakibi.adapters.FavoriteShowsAdapter;
 import com.omeerfk.dizitakibi.R;
+import com.omeerfk.dizitakibi.adapters.FavoriteShowsAdapter;
 import com.omeerfk.dizitakibi.database.Database;
 import com.omeerfk.dizitakibi.events.RemindersEvent;
 import com.omeerfk.dizitakibi.model.TvShow;
@@ -50,23 +46,19 @@ public class FavoritesFragment extends Fragment {
 
     private FavoriteShowsAdapter adapter;
 
-    public FavoritesFragment() {
-        // Required empty public constructor
-    }
+    public FavoritesFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         database = new Database(getActivity());
         database.open();
-
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         database.close();
-
     }
 
     @Override
@@ -97,15 +89,13 @@ public class FavoritesFragment extends Fragment {
     public void onEvent(String msg){
         bar.setVisibility(View.VISIBLE);
         ArrayList<TvShow> showsWithCountdowns = new ArrayList<>();
-int tmp=0;
+
         for (int i=0 ; i<shows.size() ; i++){
             if (shows.get(i).getCountdown() != null) {
 
                 showsWithCountdowns.add(shows.get(i));
-                Log.e("fragment", "onEvent: " + showsWithCountdowns.get(tmp++).getShowInfo());
                 SimpleDateFormat format = new SimpleDateFormat(getString(R.string.sdf_pattern));
                 Date now = new Date();
-
                 try {
                     Date countDownTime = format.parse(shows.get(i).getCountdown().getAirDate());
                     if (countDownTime.before(now)){
@@ -124,7 +114,5 @@ int tmp=0;
         database.removeCountdownIfShowDoesNotExist();
         bar.setVisibility(View.INVISIBLE);
         EventBus.getDefault().postSticky(new RemindersEvent(showsWithCountdowns));
-
     }
-
 }

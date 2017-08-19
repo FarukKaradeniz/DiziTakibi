@@ -91,9 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         switch (id){
             case R.id.about:
                 Intent intent = new Intent(this, AboutActivity.class);
@@ -105,9 +103,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.reminders:
                 Intent intent2 = new Intent(this, RemindersActivity.class);
                 startActivity(intent2);
-
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
