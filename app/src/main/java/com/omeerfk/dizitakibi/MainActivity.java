@@ -100,10 +100,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.refresh:
                 EventBus.getDefault().post("REFRESH");
                 break;
-            case R.id.reminders:
-                Intent intent2 = new Intent(this, RemindersActivity.class);
-                startActivity(intent2);
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

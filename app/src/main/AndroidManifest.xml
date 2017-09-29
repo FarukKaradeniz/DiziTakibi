@@ -30,11 +30,6 @@
         <activity
             android:name=".AboutActivity"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".RemindersActivity"
-            android:parentActivityName=".MainActivity" />
-
-        <receiver android:name=".NotificationReceiver" />
     </application>
 
 </manifest>

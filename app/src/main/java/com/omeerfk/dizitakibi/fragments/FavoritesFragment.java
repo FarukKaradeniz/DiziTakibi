@@ -16,7 +16,6 @@ import android.widget.ProgressBar;
 import com.omeerfk.dizitakibi.R;
 import com.omeerfk.dizitakibi.adapters.FavoriteShowsAdapter;
 import com.omeerfk.dizitakibi.database.Database;
-import com.omeerfk.dizitakibi.events.RemindersEvent;
 import com.omeerfk.dizitakibi.model.TvShow;
 import com.omeerfk.dizitakibi.services.DownloadToDatabaseService;
 
@@ -113,6 +112,5 @@ public class FavoritesFragment extends Fragment {
         adapter.setShows(shows);
         database.removeCountdownIfShowDoesNotExist();
         bar.setVisibility(View.INVISIBLE);
-        EventBus.getDefault().postSticky(new RemindersEvent(showsWithCountdowns));
     }
 }
