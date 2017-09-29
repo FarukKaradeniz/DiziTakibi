@@ -26,19 +26,18 @@ import butterknife.ButterKnife;
  * Created by Faruk Karadeniz on 3.08.2017.
  */
 
-public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdapter.ViewHolder>{
+public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdapter.ViewHolder> {
     private List<TvShow> shows;
     private Context context;
     private Database db;
 
-    public FavoriteShowsAdapter(Context context, List<TvShow> shows){
+    public FavoriteShowsAdapter(Context context, List<TvShow> shows) {
         this.context = context;
         db = new Database(context);
         db.open();
         setShows(shows);
         setHasStableIds(true);
     }
-
 
     public void setShows(List<TvShow> shows) {
         this.shows = shows;
@@ -70,16 +69,16 @@ public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdap
                 .error(R.mipmap.error_image)
                 .into(holder.image);
 
-        if (show.getCountdown() != null){
+        if (show.getCountdown() != null) {
             holder.count.setText(show.getCountdown().getAirDate());
-        }else{
+        } else {
             holder.count.setText(R.string.no_episode);
         }
 
         holder.fav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!holder.fav.isChecked()){
+                if (!holder.fav.isChecked()) {
                     shows.get(position).setFavorited(false);
                     db.removeTvShow(shows.get(position));
                 }
@@ -98,7 +97,7 @@ public class FavoriteShowsAdapter extends RecyclerView.Adapter<FavoriteShowsAdap
         return shows.get(position).hashCode();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.fav_item_image)
         ImageView image;
 

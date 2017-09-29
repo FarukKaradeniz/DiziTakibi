@@ -45,18 +45,12 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
 
     @BindView(R.id.arama_uyari)
     TextView tv;
-
+    Unbinder unbinder;
     private ShowAdapter adapter;
-
     private boolean isSearched;
-
     private List<Show> shows = new ArrayList<>();
 
-
-    Unbinder unbinder;
-
     public SearchFragment() {
-        // Required empty public constructor
     }
 
 
@@ -73,7 +67,6 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
         recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         searchView.setOnQueryTextListener(this);
-
 
         return view;
     }
@@ -114,12 +107,10 @@ public class SearchFragment extends Fragment implements SearchView.OnQueryTextLi
                     setRecyclerViewAdapter(shows);
                 }
             }
-
             @Override
             public void onFailure(Call<ShowsList> call, Throwable t) {
             }
         });
-
         return true;
     }
 

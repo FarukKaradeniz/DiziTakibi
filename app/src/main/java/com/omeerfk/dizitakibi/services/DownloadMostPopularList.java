@@ -31,7 +31,6 @@ public class DownloadMostPopularList extends IntentService {
 
         int progress = 0;
         ShowsApi api = ShowsApi.Reference.getInstance();
-
         try {
             for (int i = 1; i <= 3; i++) {
 
@@ -43,14 +42,11 @@ public class DownloadMostPopularList extends IntentService {
                     progress += 100/3;
                     EventBus.getDefault().post(new ProgressEvent(progress));
                 }
-
             }
         }
         catch (IOException e){
             return;
         }
-
-
         EventBus.getDefault().post(new ListEvent(shows));
     }
 

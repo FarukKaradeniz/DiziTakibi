@@ -39,17 +39,14 @@ public class MostPopularFragment extends Fragment {
     @BindView(R.id.progressBar)
     ProgressBar bar;
 
-    Unbinder unbinder;
-
+    private Unbinder unbinder;
 
     private ShowAdapter adapter;
 
     private List<Show> shows = new ArrayList<>();
 
     public MostPopularFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +64,6 @@ public class MostPopularFragment extends Fragment {
             Intent intent = new Intent(getActivity(), DownloadMostPopularList.class);
             getActivity().startService(intent);
         }
-
 
         adapter = new ShowAdapter(getActivity(), shows);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

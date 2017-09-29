@@ -14,11 +14,8 @@ import com.omeerfk.dizitakibi.R;
 
 public class NetworkDialogFragment extends DialogFragment {
 
-
     public NetworkDialogFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

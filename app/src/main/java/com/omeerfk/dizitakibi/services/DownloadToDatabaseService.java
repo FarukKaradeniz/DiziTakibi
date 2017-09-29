@@ -50,7 +50,6 @@ public class DownloadToDatabaseService extends IntentService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         database.close();
     }
 }
